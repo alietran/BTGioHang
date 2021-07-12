@@ -63,7 +63,7 @@ class GioHangRedux extends Component {
                           <td>
                             {(sp.gia * sp.sl).toLocaleString()}
                           </td>
-                          <td className="btn btn-danger">Xóa</td>
+                          <td><button onClick={() => {this.props.xoaGH(sp.ma)}} className="btn btn-danger">Xóa</button></td>
                         </tr>
                       );
                     })}
@@ -95,4 +95,17 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(GioHangRedux);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    xoaGH : (maSP) =>{
+      let action = {
+        type: 'XOA_SP',
+        maSP
+      }
+      dispatch(action)
+    }
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GioHangRedux);

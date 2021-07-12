@@ -15,7 +15,22 @@ const BTGioHangReducer = (state = stateGH,action) => {
         //   setStae
         state.gH = [...state.gH];
           return {...state};
-      }
+      };
+      case "XOA_SP": {
+        console.log(action);
+        let gioHangMoi =  [...state.gH];
+        // Tìm ptu cần xóa
+        let index = gioHangMoi.findIndex(
+          (spGH) => spGH.ma === action.maSP
+        );
+        if(index !== -1) {
+          gioHangMoi.splice(index,1);
+
+        }
+        // setState
+        state.gH = gioHangMoi;
+        return {...state}
+      };
       default:
         return { ...state };
     }
