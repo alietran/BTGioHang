@@ -63,6 +63,7 @@ class GioHangRedux extends Component {
                           <td>
                             {(sp.gia * sp.sl).toLocaleString()}
                           </td>
+                          <td className="btn btn-danger">Xóa</td>
                         </tr>
                       );
                     })}

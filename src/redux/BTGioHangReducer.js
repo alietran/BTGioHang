@@ -1,15 +1,25 @@
 const stateGH = {
-    gH: [{
-        ma:1 ,
-        ten: 'MĐ',
-        hAnh: './img/applephone.jpg',
-        sl: 1,
-        gia: 1000
-    }]
+    gH: []
 }
 
 const BTGioHangReducer = (state = stateGH,action) => {
-    return {...state}
+    switch (action.type) {
+      case "THEM_SP": {
+          let index = state.gH.findIndex(spGH => spGH.ma === action.spGH.ma);
+          if(index !== -1) {
+            state.gH[index].sl += 1;
+          }
+          else {
+              state.gH.push(action.spGH)
+          }
+        //   setStae
+        state.gH = [...state.gH];
+          return {...state};
+      }
+      default:
+        return { ...state };
+    }
+   
 }
 
 export default BTGioHangReducer;
