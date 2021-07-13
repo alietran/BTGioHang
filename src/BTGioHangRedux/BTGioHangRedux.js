@@ -15,11 +15,11 @@ import { connect } from "react-redux";
          <h2 className="text-center mt-4">Danh sách sản phẩm</h2>
          <div
            style={{ cursor: "pointer" }}
-           className="text-right "
+           className="text-right mb-3"
            data-toggle="modal"
            data-target="#modelId"
          >
-           Giỏ hàng<span>({this.renderSL()})</span>{" "}
+           Giỏ hàng<span>({this.renderSL()})</span>
            <i className="fa fa-cart-arrow-down"></i>
          </div>
          <ProductList />

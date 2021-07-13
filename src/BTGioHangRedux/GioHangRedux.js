@@ -21,7 +21,7 @@ class GioHangRedux extends Component {
           >
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Giỏ hàng</h5>
+                <h5 className="modal-title ">Giỏ hàng</h5>
                 <button
                   type="button"
                   className="close"
@@ -32,16 +32,15 @@ class GioHangRedux extends Component {
                 </button>
               </div>
               <div className="modal-body">
-                <table className="table">
-                  <thead>
+                <table className="table text-center">
+                  <thead className=" text-center">
                     <tr>
                       <td>Mã</td>
-                      <td>Hình</td>
-                      <td>Tên</td>
-                      <td>Giá</td>
+                      <td>Hình ảnh</td>
+                      <td>Tên sản phẩm</td>
+                      <td>Giá bán</td>
                       <td>Số lượng</td>
                       <td>Thành tiền</td>
-
                       <td></td>
                     </tr>
                   </thead>
@@ -59,15 +58,51 @@ class GioHangRedux extends Component {
                           </td>
                           <td>{sp.ten}</td>
                           <td>{sp.gia}</td>
-                          <td>{sp.sl}</td>
                           <td>
-                            {(sp.gia * sp.sl).toLocaleString()}
+                            <button
+                              className="btn btn-success"
+                              onClick={() => {
+                                this.props.tangGiamSL(sp.ma, true);
+                              }}
+                            >
+                              +
+                            </button>
+                            {sp.sl}
+                            <button
+                              className="btn btn-success"
+                              onClick={() => {
+                                this.props.tangGiamSL(sp.ma, false);
+                              }}
+                            >
+                              -
+                            </button>
                           </td>
-                          <td><button onClick={() => {this.props.xoaGH(sp.ma)}} className="btn btn-danger">Xóa</button></td>
+                          <td>{(sp.gia * sp.sl).toLocaleString()}</td>
+                          <td>
+                            <button
+                              onClick={() => {
+                                this.props.xoaGH(sp.ma);
+                              }}
+                              className="btn btn-danger"
+                            >
+                              Xóa
+                            </button>
+                          </td>
                         </tr>
                       );
                     })}
                   </tbody>
+                  <tfoot>
+                    <th colSpan={5}></th>
+                    <th>Tổng tiền: </th>
+                    <th>
+                      {this.props.gioHang
+                        .reduce((tongTien, spGH, index) => {
+                          return (tongTien += spGH.sl * spGH.gia);
+                        }, 0)
+                        .toLocaleString()}
+                    </th>
+                  </tfoot>
                 </table>
               </div>
               <div className="modal-footer">
@@ -76,10 +111,7 @@ class GioHangRedux extends Component {
                   className="btn btn-secondary"
                   data-dismiss="modal"
                 >
-                  Close
-                </button>
-                <button type="button" className="btn btn-primary">
-                  Save
+                  Đóng
                 </button>
               </div>
             </div>
@@ -103,8 +135,16 @@ const mapDispatchToProps = (dispatch) => {
         maSP
       }
       dispatch(action)
+    },
+    // tangGiam = true: xử lí tăng
+    // tangGiam = false: xử lí giảm
+    tangGiamSL: (maSP,tangGiam) =>{
+      let action = {
+        type : 'Tang_Giam_SL',
+        maSP,tangGiam
+      }
+      dispatch(action);
     }
-
   }
 }
 
